@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import LoginForm from "./components/login/loginForm.jsx";
+import ForgetForm from "./components/forget/forgetForm.jsx";
+import RegistrationForm from "./components/registration/registrationForm.jsx";
+import HomePage from './components/home/homePage.jsx';
+import BaseLayout from './components/base/baseLayout.jsx';
+import UserProvider from './components/user/userProvider.jsx';
+import EditProfile from './components/profile/editProfile.jsx';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserProvider>
+      <Routes>
+        <Route path="/" element={<BaseLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="/edit" element={<EditProfile />} />
+        </Route>       
+        <Route path='/login' element={<LoginForm />} />
+        <Route path="/forget" element={<ForgetForm />} />
+        <Route path="/registration" element={<RegistrationForm />} />
+      </Routes>
+    </UserProvider>
   );
 }
-
-export default App;

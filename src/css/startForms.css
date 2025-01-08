@@ -1,0 +1,77 @@
+html,body {
+    height:100%;
+    width:100%;
+    margin:0;
+}
+
+body {
+    display:flex;
+    background-color: rgb(250, 247, 241);
+    align-items: center;
+    justify-content: center;
+}
+
+div {
+    margin: 10px;
+}
+
+button {
+    width: 100%;
+    background-color: white;
+    border: 1px solid;
+}
+
+button:hover {
+    color: white;
+}
+
+#form_login, #form_registration, #form_forget {
+    margin: auto;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+}
+
+/* форма авторизации */
+.btnSubmit:hover {
+    background-color: red;
+}
+
+.btnForget:hover {
+    background-color: #e7e7e7;
+}
+
+.btnRegistration:hover {
+    background-color: green;
+}
+
+/* форма забыли*/
+.btnForgetConfirm:hover {
+    background-color: green;
+}
+
+.btnCancel:hover {
+    background-color: red;
+}
+
+/* форма регистрации */
+.btnRegistrationConfirm:hover {
+    background-color: green;
+}
+
+.errorInfo {
+    color: red;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
