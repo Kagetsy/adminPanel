@@ -1,4 +1,5 @@
 export enum InfoNames {
     Login = "Login",
-    Email = "Email"
+    Email = "Email",
+    CanCreateRole = "CanCreateRole"
 }

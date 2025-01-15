@@ -1,46 +1,40 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../user/userProvider';
+import { InputNames } from '../../ts/constants/inputNames';
 import Button from '../base/buttonBase';
+import Input from '../base/inputBase';
+import { Update } from '../../api/apiService';
 
 export default function EditProfile(){
     const navigate = useNavigate();
     const { user } = useContext(UserContext);
-    const [canCreateRole, setCanCreateRole] = useState(false);
-    const [email, setEmail] = useState("");
+    const [canCreateRole, setCanCreateRole] = useState(user.canCreateRole);
+    const [email, setEmail] = useState(user.email);
+    const handleChange = (e) => {
+        const { id, value } = e.target;
+        if (id === InputNames.CanCreateRole){
+            setCanCreateRole(value)
+        }
+        else if (id === InputNames.Email){
+            setEmail(value)
+        }
+    };
     async function update(){
-        let headersList = new Headers();
-        headersList.append('Content-Type', 'application/json;charset=utf-8');
-        headersList.append('X-Auth-User', `${user.id}`);
-        headersList.append('X-Auth-Pass', `${user.value}`);
-        let userInfo = {
-            canCreateRole,
-            email
-        };
-        let response = await fetch(`http://localhost:5105/User/Update`, {
-            method: 'POST',
-            headers: headersList,
-            body: JSON.stringify(userInfo)});        
-      let result = await response.ok;
-      if (result)
+      if (Update(email, canCreateRole, user))
         navigate("/");
     }
 
     function cancel(){
-        
+        setEmail(user.email);
+        setCanCreateRole(user.canCreateRole);
     }
 
     return (
         <div className="edit">
             <form id="form_edit">
-            <div>
-                <p class="formChild">Email</p>
-                <input type="email" id="email" placeholder="email" />
-            </div>                
-            <div>
-                <p class="formChild">Можно добавить роль?</p>
-                <input class="formChild" id="canCreateRole" type="checkbox" checked="True"/>
-            </div>
+            <Input type={"email"} id={InputNames.Email} placeholder={"email"} handleChange={handleChange} info={email}/>
+            <Input type={"checkBox"} id={InputNames.CanCreateRole} placeholder={"checkBox"} handleChange={handleChange} info={canCreateRole}/>
             <div className="editButtons">
                 <Button onClick={update} className={"editButton"} id={"edit"} defaultValue={"Обновить"} />
                 <Button onClick={cancel} className={"cancelButton"} id={"cancel"} defaultValue={"Отменить"} />

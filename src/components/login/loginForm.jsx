@@ -1,13 +1,14 @@
 import "../../css/startForms.css";
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Input from "../base/inputBase.jsx"
+import Input from "../base/InputWithErrorMessageBase.jsx"
 import Button from "../base/buttonBase.jsx";
 import Error from "../base/errorInfo.jsx";
 import { FormNames } from "../../ts/constants/formNames.ts";
 import { InputNames } from '../../ts/constants/inputNames.ts';
 import { UserContext } from '../user/userProvider.jsx';
 import Title from "../base/titleBase.jsx";
+import { Login, GetUser } from "../../api/apiService";
 
 export default function LoginForm() {
     const { user, setUser } = useContext(UserContext);
@@ -60,10 +61,9 @@ export default function LoginForm() {
         if (!resultValidation)
             return;
         
-        let response = await fetch(`http://localhost:5010/api/Home?login=${userData.value}&password=${passwordData.value}`);
-        let userInfo = await response.json();
-        if (userInfo != null){
-            setUser({...user, id: userInfo.id, value: userInfo.value});
+        await Login(userData.value, passwordData.value, user, setUser);
+        if (user.id !== "" && user.value !== ""){
+            await GetUser(user, setUser);
             navigate("/");
         }
     }

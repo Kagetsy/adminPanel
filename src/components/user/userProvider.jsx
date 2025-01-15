@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { UserInfo } from '../../ts/entities/userInfo';
 export const UserContext = React.createContext({});
 
 const getInitialState = () => {
     const currentUser = sessionStorage.getItem("currentUser");
-    return currentUser ? JSON.parse(currentUser) : { id : "", value : "", login : "", canCreateRole : false, email : "" }
+    const userInfo = UserInfo;
+    return currentUser ? JSON.parse(currentUser) : { userInfo }
   }
 
 export default function UserProvider({children}) {

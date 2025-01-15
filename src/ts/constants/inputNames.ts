@@ -1,5 +1,6 @@
 export enum InputNames{
     UserName = "userName",
     Password = "password",
-    Email = "email"
+    Email = "email",
+    CanCreateRole = "canCreateRole"
 }

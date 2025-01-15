@@ -1,7 +1,7 @@
 import "../../css/startForms.css";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Input from "../base/inputBase.jsx"
+import Input from "../base/InputWithErrorMessageBase.jsx"
 import Error from "../base/errorInfo.jsx"
 import { FormNames } from "../../ts/constants/formNames.ts";
 import Button from "../base/buttonBase.jsx";

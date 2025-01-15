@@ -1,4 +1,4 @@
-export default function CheckBoxBase({className, idInput, checked, disabled, checkBoxInfo}){
+export default function CheckBoxWithLabelBase({className, idInput, checked, disabled, checkBoxInfo}){
     return (
         <div>
             <p className={className}>{checkBoxInfo}</p>
