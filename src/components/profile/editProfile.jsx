@@ -4,11 +4,11 @@ import { UserContext } from '../user/userProvider';
 import { InputNames } from '../../ts/constants/inputNames';
 import Button from '../base/buttonBase';
 import Input from '../base/inputBase';
-import { Update } from '../../api/apiService';
+import { GetUser, Update } from '../../api/apiService';
 
 export default function EditProfile(){
     const navigate = useNavigate();
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const [canCreateRole, setCanCreateRole] = useState(user.canCreateRole);
     const [email, setEmail] = useState(user.email);
     const handleChange = (e) => {
@@ -21,8 +21,11 @@ export default function EditProfile(){
         }
     };
     async function update(){
-      if (Update(email, canCreateRole, user))
-        navigate("/");
+        let result = await Update(email, canCreateRole, user);
+        if (result){
+            await GetUser(user, setUser);
+            navigate("/");
+        }
     }
 
     function cancel(){

@@ -42,12 +42,16 @@ export async function Update(email : string, canCreateRole : boolean, user: User
       Email : email,
       Id : user.id
   };
-
-  await client.post(`/User/Update`, {headers, data : userInfo})
+  let result = false;
+  await client.post(`/User/Update`, userInfo, {headers : headers})
   .then((response) => {
-    return response.status === 200;
+    if (response.status === 200){
+      result = true;
+    }
   })
   .catch(function (error) {
       console.log(error);
     });
+  console.log("fgdfgasd");
+  return result;
 }
