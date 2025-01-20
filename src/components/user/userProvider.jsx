@@ -4,15 +4,16 @@ export const UserContext = React.createContext({});
 
 const getInitialState = () => {
     const currentUser = sessionStorage.getItem("currentUser");
-    const userInfo = UserInfo;
-    return currentUser ? JSON.parse(currentUser) : { userInfo }
+    const userInfo = new UserInfo();
+    return currentUser ? JSON.parse(currentUser) :  userInfo;
   }
 
 export default function UserProvider({children}) {
-    const [user, setUser] = useState(getInitialState);
+    const [user, setUser] = useState(getInitialState());
 
     useEffect(() => {
-        sessionStorage.setItem("currentUser", JSON.stringify(user))
+        sessionStorage.setItem("currentUser", JSON.stringify(user));
+        debugger;
     }, [user])
 
     return (

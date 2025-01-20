@@ -1,5 +1,5 @@
 import "../../css/startForms.css";
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from "../base/InputWithErrorMessageBase.jsx"
 import Button from "../base/buttonBase.jsx";
@@ -61,7 +61,10 @@ export default function LoginForm() {
         if (!resultValidation)
             return;
         
-        await Login(userData.value, passwordData.value, user, setUser);
+        let result = await Login(userData.value, passwordData.value, user, setUser);
+        if (result !== null){
+            setUser({...user, id: result.id, value: result.value});
+        }
         if (user.id !== "" && user.value !== ""){
             await GetUser(user, setUser);
             navigate("/");

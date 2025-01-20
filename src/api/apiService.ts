@@ -4,15 +4,18 @@ const client = axios.create({
   baseURL: "http://localhost:5010/api"
 });
 
-export async function Login(login : string, password : string, user : UserInfo, setUser : Function){
+export async function Login(login : string, password : string, user : UserInfo){
+  let result = null;
   await client.get(`/Home?login=${login}&password=${password}`)
   .then((response) => {
      if (response.data !== null)
-      setUser({...user, id: response.data.id, value: response.data.value});
+      result = response.data;
+     
     })
   .catch(function (error) {
       console.log(error);
     });
+  return result;
 }
 
 export async function GetUser(user: UserInfo, setUser : Function) {
@@ -23,7 +26,7 @@ export async function GetUser(user: UserInfo, setUser : Function) {
   await client.get(`/User/GetUser?userValue=${user.value}`, {headers})
   .then((response) => {
     if (response.data !== null){
-     setUser({...user, login: response.data.Login, canCreateRole: response.data.CanCreateNewRole, email: response.data.Email});
+     setUser({...user, userId: response.data.id, login: response.data.Login, canCreateRole: response.data.CanCreateNewRole, email: response.data.Email});
     }
   })
   .catch(function (error) {
@@ -40,7 +43,7 @@ export async function Update(email : string, canCreateRole : boolean, user: User
       Login : user.login,
       CanCreateNewRole : canCreateRole,
       Email : email,
-      Id : user.id
+      Id : user.userId
   };
   let result = false;
   await client.post(`/User/Update`, userInfo, {headers : headers})
