@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { UserContext } from '../user/userProvider';
 import DialogWithTextField from '../base/dialogs/dialogWithTextField';
 import Table from '../base/tableBase';
-import Form from '../formControls/formControlHomeBase';
+import Form from '../formControls/formControlProfile';
 import Title from "../base/titleBase.jsx";
 
 export default function AdministrationLayout() {

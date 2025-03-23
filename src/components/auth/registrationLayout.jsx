@@ -6,7 +6,7 @@ import { FormNames } from "../../ts/constants/formNames";
 import Button from "../base/buttons/buttonAuth.jsx";
 import { InputNames } from '../../ts/constants/inputNames';
 import Title from "../base/titleBase.jsx";
-import Form from "../formControls/formControlAuthBase";
+import Form from "../formControls/formControlAuth";
 import { Registration } from "../../api/apiService";
 
 export default function RegistrationLayout() {

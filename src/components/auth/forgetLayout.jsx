@@ -7,7 +7,7 @@ import Button from "../base/buttons/buttonAuth.jsx";
 import { FormNames } from "../../ts/constants/formNames";
 import { InputNames } from '../../ts/constants/inputNames';
 import Title from "../base/titleBase.jsx";
-import Form from "../formControls/formControlAuthBase";
+import Form from "../formControls/formControlAuth";
 
 export default function ForgetLayout() {
     const navigate = useNavigate();

@@ -7,7 +7,7 @@ import TextField from '../base/textFields/textField';
 import { GetUser, Update } from '../../api/apiService';
 import { Box, Typography } from '@mui/material';
 import CheckBox from '../base/checkBoxWithLabelBase';
-import Form from '../formControls/formControlHomeBase';
+import Form from '../formControls/formControlProfile';
 import { withStyles } from '@mui/styles';
 import Title from '../base/titleBase';
 

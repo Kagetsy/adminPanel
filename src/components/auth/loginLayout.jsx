@@ -10,7 +10,7 @@ import Title from "../base/titleBase.jsx";
 import { Login, GetUser } from "../../api/apiService";
 import { withStyles } from '@mui/styles';
 import { green } from "@mui/material/colors";
-import Form from "../formControls/formControlAuthBase";
+import Form from "../formControls/formControlAuth";
 
 const styles = theme => ({
     btnSubmit: {
