@@ -13,7 +13,6 @@ export default function UserProvider({children}) {
 
     useEffect(() => {
         sessionStorage.setItem("currentUser", JSON.stringify(user));
-        debugger;
     }, [user])
 
     return (

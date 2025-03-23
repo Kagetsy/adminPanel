@@ -1,14 +1,15 @@
 import "../../css/startForms.css";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Input from "../base/InputWithErrorMessageBase.jsx"
-import Error from "../base/errorInfo.jsx"
-import { FormNames } from "../../ts/constants/formNames.ts";
-import Button from "../base/buttonBase.jsx";
-import { InputNames } from '../../ts/constants/inputNames.ts';
+import Input from "../base/textFieldErrorMessageBase.jsx"
+import { FormNames } from "../../ts/constants/formNames";
+import Button from "../base/buttonAuthBase.jsx";
+import { InputNames } from '../../ts/constants/inputNames';
 import Title from "../base/titleBase.jsx";
+import Form from "../base/formControlAuthBase";
+import { Registration } from "../../api/apiService";
 
-export default function RegistrationForm() {
+export default function RegistrationLayout() {
     const navigate = useNavigate();
     function navigateUser(formName){
         navigate(`../${formName}`, { replace: true });
@@ -76,44 +77,22 @@ export default function RegistrationForm() {
         var resultValidation = validateForm();
         if (!resultValidation)
             return;
-        
-        var newUser = {
-            Login: userData.value,
-            Password: passwordData.value,
-            Email: emailData.value
-        }
 
-        let response = await fetch(`http://localhost:5010/api/Home/Create`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(newUser)
-        });
-        let result = await response;
-        if (result.ok)
+        let result = await Registration(userData.value, passwordData.value, emailData.value);
+        if (result !== null){
             navigateUser(FormNames.Login);
-        else {
-            var error = document.getElementById("errorInfo");
-            if (error == null)
-                return;
-
-            error.innerHTML = "Ошибка регистрации!";
         }
     }
 
     return (
-        <form id="form_registration">
+        <Form>
             <Title title="Регистрация"></Title>
-            <div>
-                <div>Регистрация</div>
-                <Input type={"username"} id={InputNames.UserName} placeholder={"username"} handleChange={handleChange} info={userData}/>
-                <Input type={"password"} id={InputNames.Password} placeholder={"password"} handleChange={handleChange} info={passwordData}/>
-                <Input type={"email"} id={InputNames.Email} placeholder={"email"} handleChange={handleChange} info={emailData}/>
-                <Button onClick={registrationConfirm} className={"btnRegistrationConfirm"} id={"btnRegistrationConfirm"} defaultValue={"Зарегистрироваться"} />
-                <Button onClick={() => navigateUser(FormNames.Login)} className={"btnCancel"} id={"cancel"} defaultValue={"Отмена"}/>
-                <Error />
-            </div>
-        </form>
+            <div>Регистрация</div>
+            <Input type={"username"} id={InputNames.UserName} placeholder={"username"} handleChange={handleChange} info={userData}/>
+            <Input type={"password"} id={InputNames.Password} placeholder={"password"} handleChange={handleChange} info={passwordData}/>
+            <Input type={"email"} id={InputNames.Email} placeholder={"email"} handleChange={handleChange} info={emailData}/>
+            <Button onClick={registrationConfirm} className={"btnRegistrationConfirm"} id={"btnRegistrationConfirm"} defaultValue={"Зарегистрироваться"} />
+            <Button onClick={() => navigateUser(FormNames.Login)} className={"btnCancel"} id={"cancel"} defaultValue={"Отмена"}/>
+        </Form>
     );
 }

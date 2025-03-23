@@ -11,41 +11,6 @@ body {
     justify-content: center;
 }
 
-div {
-    margin: 10px;
-}
-
-button {
-    width: 100%;
-    background-color: white;
-    border: 1px solid;
-}
-
-button:hover {
-    color: white;
-}
-
-#form_login, #form_registration, #form_forget {
-    margin: auto;
-    border: 1px solid black;
-    border-radius: 15px;
-    padding: 10px;
-    text-align: center;
-}
-
-/* форма авторизации */
-.btnSubmit:hover {
-    background-color: red;
-}
-
-.btnForget:hover {
-    background-color: #e7e7e7;
-}
-
-.btnRegistration:hover {
-    background-color: green;
-}
-
 /* форма забыли*/
 .btnForgetConfirm:hover {
     background-color: green;

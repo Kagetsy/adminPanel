@@ -1,25 +1,33 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import LoginForm from "./components/login/loginForm.jsx";
-import ForgetForm from "./components/forget/forgetForm.jsx";
-import RegistrationForm from "./components/registration/registrationForm.jsx";
-import HomePage from './components/home/homePage.jsx';
+import LoginLayout from './components/login/loginLayout.jsx';
+import ForgetLayout from "./components/forget/forgetLayout.jsx";
+import RegistrationLayout from "./components/registration/registrationLayout.jsx";
+import HomeLayout from './components/home/homeLayout.jsx';
 import BaseLayout from './components/base/baseLayout.jsx';
 import UserProvider from './components/user/userProvider.jsx';
-import EditProfile from './components/profile/editProfile.jsx';
+import EditProfileLayout from './components/profile/editProfileLayout.jsx';
+import AdministrationLayout from './components/administration/administrationLayout.jsx';
+import { createTheme, ThemeProvider, useTheme } from '@mui/material';
+
+const theme = createTheme();
 
 export default function App() {
+  const themeCurrent = useTheme(theme);
   return (
+    <ThemeProvider theme={themeCurrent}>
     <UserProvider>
       <Routes>
         <Route path="/" element={<BaseLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/edit" element={<EditProfile />} />
+          <Route index element={<HomeLayout />} />
+          <Route path="/edit" element={<EditProfileLayout />} />
+          <Route path="/administration" element={<AdministrationLayout />} />
         </Route>       
-        <Route path='/login' element={<LoginForm />} />
-        <Route path="/forget" element={<ForgetForm />} />
-        <Route path="/registration" element={<RegistrationForm />} />
+        <Route path='/login' element={<LoginLayout />} />
+        <Route path="/forget" element={<ForgetLayout />} />
+        <Route path="/registration" element={<RegistrationLayout />} />
       </Routes>
     </UserProvider>
+    </ThemeProvider>
   );
 }

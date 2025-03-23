@@ -1,16 +1,38 @@
 import "../../css/startForms.css";
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Input from "../base/InputWithErrorMessageBase.jsx"
-import Button from "../base/buttonBase.jsx";
-import Error from "../base/errorInfo.jsx";
+import Input from "../base/textFieldErrorMessageBase.jsx"
+import Button from "../base/buttonAuthBase.jsx";
 import { FormNames } from "../../ts/constants/formNames.ts";
 import { InputNames } from '../../ts/constants/inputNames.ts';
 import { UserContext } from '../user/userProvider.jsx';
 import Title from "../base/titleBase.jsx";
 import { Login, GetUser } from "../../api/apiService";
+import { withStyles } from '@mui/styles';
+import { green } from "@mui/material/colors";
+import Form from "../base/formControlAuthBase";
 
-export default function LoginForm() {
+const styles = theme => ({
+    btnSubmit: {
+      "&:hover": {
+        backgroundColor : "red",
+      },
+    },
+    btnForget: {
+      "&:hover": {
+        backgroundColor : "#e7e7e7",
+      },
+    },
+    btnRegistration: {
+      "&:hover": {
+        backgroundColor : green[400],
+      },
+    },
+  });
+
+
+function LoginLayout(props){
+    const { classes } = props;
     const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
     function navigateUser(formName){
@@ -61,26 +83,30 @@ export default function LoginForm() {
         if (!resultValidation)
             return;
         
-        let result = await Login(userData.value, passwordData.value, user, setUser);
+        let result = await Login(userData.value, passwordData.value, user);
         if (result !== null){
-            setUser({...user, id: result.id, value: result.value});
+            setUser(() => ({...user, id: result.id, value: result.value}));
         }
         if (user.id !== "" && user.value !== ""){
-            await GetUser(user, setUser);
+            let userResult = await GetUser(user);
+            if (userResult !== null){
+                setUser(() => ({...user, userId: userResult.Id, login: userResult.Login, canCreateRole: userResult.CanCreateNewRole, email: userResult.Email}));
+            }
             navigate("/");
         }
     }
-    
+
     return (
-        <form id="form_login">
+        <Form>
             <Title title="Авторизация"></Title>
             <div>Авторизация</div>
             <Input type={"username"} id={InputNames.UserName} placeholder={"username"} handleChange={handleChange} info={userData}/>
             <Input type={"password"} id={InputNames.Password} placeholder={"password"} handleChange={handleChange} info={passwordData}/>
-            <Button onClick={() => loginUser()} className={"btnSubmit"} id={"submit"} defaultValue={"Войти"}/>
-            <Button onClick={() => navigateUser(FormNames.Forget)} className={"btnForget"} id={"forget"} defaultValue={"Не помню пароль"}/>
-            <Button onClick={() => navigateUser(FormNames.Registration)} className={"btnRegistration"} id={"registration"} defaultValue={"Зарегистрироваться"}/>
-            <Error />
-        </form>
-    );
+            <Button onClick={() => loginUser()} className={classes.btnSubmit} id={"submit"} defaultValue={"Войти"}/>
+            <Button onClick={() => navigateUser(FormNames.Forget)} className={classes.btnForget} id={"forget"} defaultValue={"Не помню пароль"}/>
+            <Button onClick={() => navigateUser(FormNames.Registration)} className={classes.btnRegistration} id={"registration"} defaultValue={"Зарегистрироваться"}/>
+        </Form>);
 }
+
+
+export default withStyles(styles)(LoginLayout);

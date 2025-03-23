@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useLocation, Outlet, Navigate } from 'react-router-dom';
 import { UserContext } from '../user/userProvider';
-import Menu from '../menu/menu';
+import MenuComponent from '../menu/menu'
 
 export default function BaseLayout() {
     const { user } = useContext(UserContext);
@@ -9,7 +9,7 @@ export default function BaseLayout() {
     if (user.id !== undefined && user.id !== "" && user.value !== undefined && user.value !== "")
         return (
             <>
-                <Menu />
+                <MenuComponent />
                 <Outlet />
             </>);
     else

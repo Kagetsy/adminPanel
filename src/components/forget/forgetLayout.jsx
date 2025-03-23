@@ -1,14 +1,15 @@
 import "../../css/startForms.css";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Input from "../base/InputWithErrorMessageBase.jsx"
+import Input from "../base/textFieldErrorMessageBase.jsx"
 import Error from "../base/errorInfo.jsx";
-import Button from "../base/buttonBase.jsx";
-import { FormNames } from "../../ts/constants/formNames.ts";
-import { InputNames } from '../../ts/constants/inputNames.ts';
+import Button from "../base/buttonAuthBase.jsx";
+import { FormNames } from "../../ts/constants/formNames";
+import { InputNames } from '../../ts/constants/inputNames';
 import Title from "../base/titleBase.jsx";
+import Form from "../base/formControlAuthBase";
 
-export default function ForgetForm() {
+export default function ForgetLayout() {
     const navigate = useNavigate();
     function navigateUser(formName){
         navigate(`../${formName}`, { replace: true });
@@ -48,15 +49,13 @@ export default function ForgetForm() {
     }
 
     return (
-        <form id="form_forget">
+        <Form>
             <Title title="Забыл пароль"></Title>
-            <div>
-                <div>Восстановление доступа</div>
-                <Input type={"email"} id={InputNames.Email} placeholder={"email"} handleChange={handleChange} info={emailData}/>
-                <Button onClick={forgetConfirm} className={"btnForgetConfirm"} id={"btnForgetConfirm"} defaultValue={"Отправить"} />
-                <Button onClick={() => navigateUser(FormNames.Login)} className={"btnCancel"} id={"cancel"} defaultValue={"Отмена"}/>
-                <Error />
-            </div>
-        </form>
+            <div>Восстановление доступа</div>
+            <Input type={"email"} id={InputNames.Email} placeholder={"email"} handleChange={handleChange} info={emailData}/>
+            <Button onClick={forgetConfirm} className={"btnForgetConfirm"} id={"btnForgetConfirm"} defaultValue={"Отправить"} />
+            <Button onClick={() => navigateUser(FormNames.Login)} className={"btnCancel"} id={"cancel"} defaultValue={"Отмена"}/>
+            <Error />
+        </Form>
     );
 }
