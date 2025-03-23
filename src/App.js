@@ -3,12 +3,12 @@ import { Routes, Route } from 'react-router-dom';
 import LoginLayout from './components/auth/loginLayout.jsx';
 import ForgetLayout from "./components/auth/forgetLayout.jsx";
 import RegistrationLayout from "./components/auth/registrationLayout.jsx";
-import HomeLayout from './components/home/homeLayout.jsx';
 import BaseLayout from './components/base/baseLayout.jsx';
 import UserProvider from './components/user/userProvider.jsx';
 import EditProfileLayout from './components/profile/editProfileLayout.jsx';
 import AdministrationLayout from './components/profile/administrationLayout.jsx';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material';
+import ProfileLayout from './components/profile/profileLayout.jsx';
 
 const theme = createTheme();
 
@@ -19,7 +19,7 @@ export default function App() {
     <UserProvider>
       <Routes>
         <Route path="/" element={<BaseLayout />}>
-          <Route index element={<HomeLayout />} />
+          <Route index element={<ProfileLayout />} />
           <Route path="/edit" element={<EditProfileLayout />} />
           <Route path="/administration" element={<AdministrationLayout />} />
         </Route>       

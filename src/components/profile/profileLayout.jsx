@@ -4,6 +4,7 @@ import { UserContext } from '../user/userProvider';
 import Info from "../base/infoBase";
 import CheckBox from '../base/checkBoxWithLabelBase';
 import Form from '../formControls/formControlHomeBase';
+import Title from "../base/titleBase.jsx";
 
 export default function ProfileLayout(){
     const { user } = useContext(UserContext);
@@ -12,10 +13,13 @@ export default function ProfileLayout(){
     const [ canCreateRole ] = useState(user.canCreateRole);
     
     return (
-        <Form>
-            <Info nameBlock={InfoNames.Login} content={login}/>
-            <Info nameBlock={InfoNames.Email} content={email}/>
-            <CheckBox checkBoxInfo={"Можно добавить роль?"} checked={canCreateRole} disabled={true} />
-        </Form>
+        <>
+            <Title title="Мой профиль" />
+            <Form>
+                <Info nameBlock={InfoNames.Login} content={login}/>
+                <Info nameBlock={InfoNames.Email} content={email}/>
+                <CheckBox checkBoxInfo={"Можно добавить роль?"} checked={canCreateRole} disabled={true} />
+            </Form>
+        </>
     );
 }

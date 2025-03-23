@@ -9,6 +9,7 @@ import { Box, Typography } from '@mui/material';
 import CheckBox from '../base/checkBoxWithLabelBase';
 import Form from '../formControls/formControlHomeBase';
 import { withStyles } from '@mui/styles';
+import Title from '../base/titleBase';
 
 const styles = theme => ({
   cancelEditButton: {
@@ -75,30 +76,33 @@ function EditProfileLayout(props){
     }
 
     return (
-        <Form>
-            <Box component="div"
-                sx={{ '&.MuiBox-root': { m: 0, width: '100%' } }}
-                noValidate
-                className="boxEmail"
-                autoComplete="off">
-                <Typography style={{ marginTop: "12.5px", marginLeft: 5, marginRight: 5}}>Email</Typography>
-                <TextField type={"email"} id={InputNames.Email} handleChange={handleChange} info={email}/>
-            </Box>
-            <CheckBox handleChange={handleChange} info={canCreateRole} checkBoxInfo={"Можно добавить роль?"} disabled={false}/>
-            <Box className="editButtons" 
-                component="div"
-                sx={{ '&.MuiBox-root': { 
-                        display: "flex",
-                        flexDirection: "row",
-                        textAlign: "left"
-                    } 
-                }}
-                noValidate
-                autoComplete="off">
-                <Button onClick={cancel} className={classes.cancelEditButton} id={"cancel"} defaultValue={"Отменить"} />
-                <Button onClick={update} className={classes.editButton} id={"edit"} defaultValue={"Обновить"} />
-            </Box>
-        </Form>
+        <>
+            <Title title="Редактировать мой профиль" />
+            <Form>
+                <Box component="div"
+                    sx={{ '&.MuiBox-root': { m: 0, width: '100%' } }}
+                    noValidate
+                    className="boxEmail"
+                    autoComplete="off">
+                    <Typography style={{ marginTop: "12.5px", marginLeft: 5, marginRight: 5}}>Email</Typography>
+                    <TextField type={"email"} id={InputNames.Email} handleChange={handleChange} info={email}/>
+                </Box>
+                <CheckBox handleChange={handleChange} info={canCreateRole} checkBoxInfo={"Можно добавить роль?"} disabled={false}/>
+                <Box className="editButtons" 
+                    component="div"
+                    sx={{ '&.MuiBox-root': { 
+                            display: "flex",
+                            flexDirection: "row",
+                            textAlign: "left"
+                        } 
+                    }}
+                    noValidate
+                    autoComplete="off">
+                    <Button onClick={cancel} className={classes.cancelEditButton} id={"cancel"} defaultValue={"Отменить"} />
+                    <Button onClick={update} className={classes.editButton} id={"edit"} defaultValue={"Обновить"} />
+                </Box>
+            </Form>
+        </>
     );
 }
 
