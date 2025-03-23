@@ -2,12 +2,12 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../user/userProvider';
 import { InputNames } from '../../ts/constants/inputNames';
-import Button from '../base/buttonHomeBase';
-import TextField from '../base/textFieldBase';
+import Button from '../base/buttons/buttonHome';
+import TextField from '../base/textFields/textField';
 import { GetUser, Update } from '../../api/apiService';
 import { Box, Typography } from '@mui/material';
 import CheckBox from '../base/checkBoxWithLabelBase';
-import Form from '../base/formControlHomeBase';
+import Form from '../formControls/formControlHomeBase';
 import { withStyles } from '@mui/styles';
 
 const styles = theme => ({

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "../base/buttonAuthBase";
+import Button from "../buttons/buttonAuth";
 import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from "@mui/material";
 
 export default function DialogWithTextField(){

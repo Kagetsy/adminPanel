@@ -1,12 +1,12 @@
 import "../../css/startForms.css";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Input from "../base/textFieldErrorMessageBase.jsx"
+import Input from "../base/textFields/textFieldErrorMessage.jsx"
 import { FormNames } from "../../ts/constants/formNames";
-import Button from "../base/buttonAuthBase.jsx";
+import Button from "../base/buttons/buttonAuth.jsx";
 import { InputNames } from '../../ts/constants/inputNames';
 import Title from "../base/titleBase.jsx";
-import Form from "../base/formControlAuthBase";
+import Form from "../formControls/formControlAuthBase";
 import { Registration } from "../../api/apiService";
 
 export default function RegistrationLayout() {

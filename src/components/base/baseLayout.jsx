@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useLocation, Outlet, Navigate } from 'react-router-dom';
 import { UserContext } from '../user/userProvider';
-import MenuComponent from '../menu/menu'
+import MenuComponent from './menu/menu'
 
 export default function BaseLayout() {
     const { user } = useContext(UserContext);

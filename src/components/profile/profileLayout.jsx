@@ -3,7 +3,7 @@ import { InfoNames } from "../../ts/constants/infoNames";
 import { UserContext } from '../user/userProvider';
 import Info from "../base/infoBase";
 import CheckBox from '../base/checkBoxWithLabelBase';
-import Form from '../base/formControlHomeBase';
+import Form from '../formControls/formControlHomeBase';
 
 export default function ProfileLayout(){
     const { user } = useContext(UserContext);

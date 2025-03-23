@@ -1,13 +1,13 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import LoginLayout from './components/login/loginLayout.jsx';
-import ForgetLayout from "./components/forget/forgetLayout.jsx";
-import RegistrationLayout from "./components/registration/registrationLayout.jsx";
+import LoginLayout from './components/auth/loginLayout.jsx';
+import ForgetLayout from "./components/auth/forgetLayout.jsx";
+import RegistrationLayout from "./components/auth/registrationLayout.jsx";
 import HomeLayout from './components/home/homeLayout.jsx';
 import BaseLayout from './components/base/baseLayout.jsx';
 import UserProvider from './components/user/userProvider.jsx';
 import EditProfileLayout from './components/profile/editProfileLayout.jsx';
-import AdministrationLayout from './components/administration/administrationLayout.jsx';
+import AdministrationLayout from './components/profile/administrationLayout.jsx';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material';
 
 const theme = createTheme();

@@ -1,16 +1,16 @@
 import "../../css/startForms.css";
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Input from "../base/textFieldErrorMessageBase.jsx"
-import Button from "../base/buttonAuthBase.jsx";
-import { FormNames } from "../../ts/constants/formNames.ts";
-import { InputNames } from '../../ts/constants/inputNames.ts';
+import Input from "../base/textFields/textFieldErrorMessage.jsx"
+import Button from "../base/buttons/buttonAuth.jsx";
+import { FormNames } from "../../ts/constants/formNames";
+import { InputNames } from '../../ts/constants/inputNames';
 import { UserContext } from '../user/userProvider.jsx';
 import Title from "../base/titleBase.jsx";
 import { Login, GetUser } from "../../api/apiService";
 import { withStyles } from '@mui/styles';
 import { green } from "@mui/material/colors";
-import Form from "../base/formControlAuthBase";
+import Form from "../formControls/formControlAuthBase";
 
 const styles = theme => ({
     btnSubmit: {
