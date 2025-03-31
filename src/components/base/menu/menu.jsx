@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../user/userProvider';
 import { MenuList, MenuItem } from '@mui/material';
 import { withStyles } from '@mui/styles';
+import { UserInfo } from '../../../ts/entities/userInfo';
 
 const styles = theme => ({
   menuItem: {
@@ -66,7 +67,7 @@ function MenuComponent(props) {
     navigate("/administration");
   }
   function returnUser(){
-    setUser({...user, id: "", value: ""});
+    setUser(new UserInfo());
     navigate("/");
   }
   return (

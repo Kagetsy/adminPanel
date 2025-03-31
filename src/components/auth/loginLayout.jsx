@@ -1,5 +1,5 @@
 import "../../css/startForms.css";
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from "../base/textFields/textFieldErrorMessage.jsx"
 import Button from "../base/buttons/buttonAuth.jsx";
@@ -85,7 +85,7 @@ function LoginLayout(props){
         
         let result = await Login(userData.value, passwordData.value, user);
         if (result !== null){
-            setUser(() => ({...user, id: result.id, value: result.value}));
+            setUser(() => (user.id = result.id, user.value = result.value));
         }
         if (user.id !== "" && user.value !== ""){
             let userResult = await GetUser(user);
