@@ -1,6 +1,6 @@
 import { FormControlLabel, Checkbox } from "@mui/material";
 
-export default function CheckBoxWithLabelBase({checked, disabled, checkBoxInfo, handleChange}){
+export default function CheckBoxWithLabelBase({checked, disabled, checkBoxInfo, handleChange, id}){
     return (
         <div>
             <FormControlLabel 
@@ -17,6 +17,7 @@ export default function CheckBoxWithLabelBase({checked, disabled, checkBoxInfo, 
                         disabled={disabled}
                         onChange={handleChange}
                         size="small"
+                        id={id}
                         style={{ width: "20px", padding: 0, marginLeft: 5 }}
                     />
                 }

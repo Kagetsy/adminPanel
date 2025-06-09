@@ -7,10 +7,10 @@ import Form from '../formControls/formControlProfile';
 import Title from "../base/titleBase.jsx";
 
 export default function ProfileLayout(){
-    const { user } = useContext(UserContext);
-    const [ email ] = useState(user.email);
-    const [ login ] = useState(user.login);
-    const [ canCreateRole ] = useState(user.canCreateRole);
+    const currentUser = useContext(UserContext);
+    const [ email ] = useState(currentUser.state.email);
+    const [ login ] = useState(currentUser.state.login);
+    const [ canCreateRole ] = useState(currentUser.state.canCreateRole);
     
     return (
         <>

@@ -1,16 +1,19 @@
 import "../../css/startForms.css";
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Input from "../base/textFields/textFieldErrorMessage.jsx"
+import Input from "../base/textFields/textFieldErrorMessage.jsx";
 import Button from "../base/buttons/buttonAuth.jsx";
 import { FormNames } from "../../ts/constants/formNames";
 import { InputNames } from '../../ts/constants/inputNames';
-import { UserContext } from '../user/userProvider.jsx';
 import Title from "../base/titleBase.jsx";
 import { Login, GetUser } from "../../api/apiService";
 import { withStyles } from '@mui/styles';
 import { green } from "@mui/material/colors";
 import Form from "../formControls/formControlAuth";
+import { useDispatch } from 'react-redux';
+import { updateAuthResult, updateUserResult } from "../store/user/slices";
+import exportedObject from "../store/store";
+import { UserContext } from "../user/userProvider";
 
 const styles = theme => ({
     btnSubmit: {
@@ -33,7 +36,8 @@ const styles = theme => ({
 
 function LoginLayout(props){
     const { classes } = props;
-    const { user, setUser } = useContext(UserContext);
+    const dispatch = exportedObject.useDispatch();
+    const currentUser = useContext(UserContext);
     const navigate = useNavigate();
     function navigateUser(formName){
         navigate(`../${formName}`, { replace: true });
@@ -52,49 +56,49 @@ function LoginLayout(props){
     const handleChange = (e) => {
         const { id, value } = e.target;
         if (id === InputNames.UserName){
-            setUserData({...userData, value: value})
+            setUserData({...userData, value: value});
         }
         else if (id === InputNames.Password){
-            setPasswordData({...passwordData, value: value})
+            setPasswordData({...passwordData, value: value});
         }
     };
     
     const validateForm = () => {
         let result = true;
         if (!userData.value.trim()) {
-            setUserData({...userData, error: "Введите имя пользователя"})
+            setUserData({...userData, error: "Введите имя пользователя"});
         }
         else {
-            setUserData({...userData, error: ""})
+            setUserData({...userData, error: ""});
         }
 
         if (!passwordData.value) {
-            setPasswordData({...passwordData, error: "Введите пароль"})
+            setPasswordData({...passwordData, error: "Введите пароль"});
             result = false;
         }
         else {
-            setPasswordData({...passwordData, error: ""})
+            setPasswordData({...passwordData, error: ""});
         }
         return result;
     };
-
+    
     async function loginUser(){
         var resultValidation = validateForm();
         if (!resultValidation)
             return;
         
-        let result = await Login(userData.value, passwordData.value, user);
+        let result = await Login(userData.value, passwordData.value);
         if (result !== null){
-            setUser(() => (user.id = result.id, user.value = result.value));
-        }
-        if (user.id !== "" && user.value !== ""){
-            let userResult = await GetUser(user);
+            dispatch(updateAuthResult(result));
+            const state = exportedObject.store.getState();
+            var g = currentUser;
+            let userResult = await GetUser(state);
             if (userResult !== null){
-                setUser(() => ({...user, userId: userResult.Id, login: userResult.Login, canCreateRole: userResult.CanCreateNewRole, email: userResult.Email}));
+                dispatch(updateUserResult(userResult));
             }
-            navigate("/");
+            navigate("/");            
         }
-    }
+    };
 
     return (
         <Form>

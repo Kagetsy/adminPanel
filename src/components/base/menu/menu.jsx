@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../user/userProvider';
 import { MenuList, MenuItem } from '@mui/material';
 import { withStyles } from '@mui/styles';
-import { UserInfo } from '../../../ts/entities/userInfo';
+import { clear } from '../../store/user/slices';
+import exportedObject from '../../store/store';
 
 const styles = theme => ({
   menuItem: {
@@ -54,8 +54,8 @@ const styles = theme => ({
 });
 
 function MenuComponent(props) {
+  const dispatch = exportedObject.useDispatch();
   const { classes } = props;
-  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   function openProfile(){
     navigate("/");
@@ -67,7 +67,7 @@ function MenuComponent(props) {
     navigate("/administration");
   }
   function returnUser(){
-    setUser(new UserInfo());
+    dispatch(clear());
     navigate("/");
   }
   return (

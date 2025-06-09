@@ -10,6 +10,8 @@ import CheckBox from '../base/checkBoxWithLabelBase';
 import Form from '../formControls/formControlProfile';
 import { withStyles } from '@mui/styles';
 import Title from '../base/titleBase';
+import exportedObject from '../store/store';
+import { updateUserResult } from '../store/user/slices';
 
 const styles = theme => ({
   cancelEditButton: {
@@ -45,26 +47,27 @@ const styles = theme => ({
 });
 
 function EditProfileLayout(props){
-    const { classes } = props;
+    const { classes } = props;   
+    const dispatch = exportedObject.useDispatch();
     const navigate = useNavigate();
-    const { user, setUser } = useContext(UserContext);
-    const [canCreateRole, setCanCreateRole] = useState(user.canCreateRole);
-    const [email, setEmail] = useState(user.email);
+    const user = useContext(UserContext);
+    const [canCreateRole, setCanCreateRole] = useState(user.state.canCreateRole);
+    const [email, setEmail] = useState(user.state.email);
     const handleChange = (e) => {
         const { id, value } = e.target;
         if (id === InputNames.CanCreateRole){
-            setCanCreateRole(value)
+            setCanCreateRole(e.target.checked)
         }
         else if (id === InputNames.Email){
             setEmail(value)
         }
     };
     async function update(){
-        let result = await Update(email, canCreateRole, user);
+        let result = await Update(email, canCreateRole, user.state);
         if (result){
-            var userInfo = await GetUser(user, setUser);
+            var userInfo = await GetUser(user.state);
             if (userInfo !== null){
-                setUser({...user, canCreateRole: userInfo.CanCreateNewRole, email: userInfo.Email});
+                dispatch(updateUserResult(userInfo));
             }
             navigate("/");
         }
@@ -87,7 +90,7 @@ function EditProfileLayout(props){
                     <Typography style={{ marginTop: "12.5px", marginLeft: 5, marginRight: 5}}>Email</Typography>
                     <TextField type={"email"} id={InputNames.Email} handleChange={handleChange} info={email}/>
                 </Box>
-                <CheckBox handleChange={handleChange} info={canCreateRole} checkBoxInfo={"Можно добавить роль?"} disabled={false}/>
+                <CheckBox handleChange={handleChange} info={canCreateRole} id={InputNames.CanCreateRole} checkBoxInfo={"Можно добавить роль?"} disabled={false}/>
                 <Box className="editButtons" 
                     component="div"
                     sx={{ '&.MuiBox-root': { 

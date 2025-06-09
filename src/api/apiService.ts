@@ -1,16 +1,18 @@
 import axios from "axios";
 import { UserInfo } from "../ts/entities/userInfo";
+import { AuthResult } from "../ts/entities/authResult";
+import { UserResult } from "../ts/entities/userResult";
 const client = axios.create({
   baseURL: "http://localhost:5010/api"
 });
 
 export async function Login(login : string, password : string){
-  let result = null;
+  let result = new AuthResult();
   await client.get(`/Home?login=${login}&password=${password}`)
   .then((response) => {
      if (response.data !== null)
-      result = response.data;
-     
+      result.id = response.data.id;
+      result.value = response.data.value;
     })
   .catch(function (error) {
       console.log(error);
@@ -23,11 +25,14 @@ export async function GetUser(user: UserInfo) {
     'X-Auth-User': `${user.id}`,
     'X-Auth-Pass': `${user.value}`
   };
-  let result = null;
+  let result = new UserResult();
   await client.get(`/User/GetUser?userValue=${user.value}`, {headers})
   .then((response) => {
     if (response.data !== null){
-     result = response.data;
+     result.userId = response.data.Id;
+     result.email = response.data.Email;
+     result.login = response.data.Login;
+     result.canCreateRole = response.data.CanCreateNewRole;
     }
   })
   .catch(function (error) {

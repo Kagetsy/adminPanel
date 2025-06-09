@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useLocation, Outlet, Navigate } from 'react-router-dom';
-import { UserContext } from '../user/userProvider';
 import MenuComponent from './menu/menu';
 import "../../css/homeForm.css";
+import { useSelector } from 'react-redux';
+import { isAuthtorizedSelector } from '../store/user/selectors'; 
 
 export default function BaseLayout() {
-    const { user } = useContext(UserContext);
     const location = useLocation();
-    if (user.id !== undefined && user.id !== "" && user.value !== undefined && user.value !== "")
+    if (useSelector(isAuthtorizedSelector))
         return (
             <>
                 <MenuComponent />
