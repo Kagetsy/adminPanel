@@ -91,7 +91,6 @@ function LoginLayout(props){
         if (result !== null){
             dispatch(updateAuthResult(result));
             const state = exportedObject.store.getState();
-            var g = currentUser;
             let userResult = await GetUser(state);
             if (userResult !== null){
                 dispatch(updateUserResult(userResult));
