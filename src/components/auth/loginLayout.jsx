@@ -88,11 +88,6 @@ function LoginLayout(props){
         await Login(userData.value, passwordData.value);
         const state = exportedObject.store.getState();
         if (state !== null){
-            // // dispatch(updateAuthResult(result));
-            // let userResult = ;
-            // if (userResult !== null){
-            //     // dispatch(updateUserResult(userResult));
-            // }
             navigate("/");          
         }
     };
