@@ -1,5 +1,5 @@
 import "../../css/startForms.css";
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from "../base/textFields/textFieldErrorMessage.jsx";
 import Button from "../base/buttons/buttonAuth.jsx";
@@ -13,7 +13,6 @@ import Form from "../formControls/formControlAuth";
 import { useDispatch } from 'react-redux';
 import { updateAuthResult, updateUserResult } from "../store/user/slices";
 import exportedObject from "../store/store";
-import { UserContext } from "../user/userProvider";
 
 const styles = theme => ({
     btnSubmit: {
@@ -36,8 +35,7 @@ const styles = theme => ({
 
 function LoginLayout(props){
     const { classes } = props;
-    const dispatch = exportedObject.useDispatch();
-    const currentUser = useContext(UserContext);
+    // const dispatch = exportedObject.useDispatch();
     const navigate = useNavigate();
     function navigateUser(formName){
         navigate(`../${formName}`, { replace: true });
@@ -87,15 +85,15 @@ function LoginLayout(props){
         if (!resultValidation)
             return;
         
-        let result = await Login(userData.value, passwordData.value);
-        if (result !== null){
-            dispatch(updateAuthResult(result));
-            const state = exportedObject.store.getState();
-            let userResult = await GetUser(state);
-            if (userResult !== null){
-                dispatch(updateUserResult(userResult));
-            }
-            navigate("/");            
+        await Login(userData.value, passwordData.value);
+        const state = exportedObject.store.getState();
+        if (state !== null){
+            // // dispatch(updateAuthResult(result));
+            // let userResult = ;
+            // if (userResult !== null){
+            //     // dispatch(updateUserResult(userResult));
+            // }
+            navigate("/");          
         }
     };
 

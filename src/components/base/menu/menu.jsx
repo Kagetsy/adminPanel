@@ -54,7 +54,6 @@ const styles = theme => ({
 });
 
 function MenuComponent(props) {
-  const dispatch = exportedObject.useDispatch();
   const { classes } = props;
   const navigate = useNavigate();
   function openProfile(){
@@ -67,7 +66,7 @@ function MenuComponent(props) {
     navigate("/administration");
   }
   function returnUser(){
-    dispatch(clear());
+    exportedObject.dispatch(clear());
     navigate("/");
   }
   return (

@@ -2,22 +2,28 @@ import axios from "axios";
 import { UserInfo } from "../ts/entities/userInfo";
 import { AuthResult } from "../ts/entities/authResult";
 import { UserResult } from "../ts/entities/userResult";
+import { updateUserResult, updateAuthResult } from "../components/store/user/slices";
+import exportedObject from "../components/store/store";
+import { selectUser } from "../components/store/user/selectors";
+import { useSelector } from 'react-redux';
+
 const client = axios.create({
   baseURL: "http://localhost:5010/api"
 });
 
 export async function Login(login : string, password : string){
   let result = new AuthResult();
-  await client.get(`/Home?login=${login}&password=${password}`)
-  .then((response) => {
-     if (response.data !== null)
-      result.id = response.data.id;
-      result.value = response.data.value;
-    })
+  return await client.get(`/Home?login=${login}&password=${password}`)
+  .then(async (response) => {
+    result.id = response.data.id;
+    result.value = response.data.value;
+    exportedObject.dispatch(updateAuthResult(result));
+    let user = exportedObject.store.getState();
+    await GetUser(user);
+  })
   .catch(function (error) {
       console.log(error);
     });
-  return result;
 }
 
 export async function GetUser(user: UserInfo) {
@@ -33,6 +39,7 @@ export async function GetUser(user: UserInfo) {
      result.email = response.data.Email;
      result.login = response.data.Login;
      result.canCreateRole = response.data.CanCreateNewRole;
+     exportedObject.dispatch(updateUserResult(result));
     }
   })
   .catch(function (error) {
